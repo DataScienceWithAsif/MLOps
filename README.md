@@ -9,3 +9,9 @@ till experiment 4:
     ngram_range = (1,3)
     max_features = 500
     imbalance_method = oversampling(ADASYN)
+till experiment 5:
+    vectorizer = TF-IDF
+    ngram_range = (1,3)
+    max_features = 500
+    imbalance_method = oversampling(ADASYN, SMOTE)
+    ML Model = lightgbm (LGBMClassifier)
