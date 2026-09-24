@@ -1,0 +1,4 @@
+2026-09-24 21:33:11,033 - data_ingestion - DEBUG - parameters retrieved from path: C:\Users\as296\Desktop\MLOps\YT_Insights\params.yaml
+2026-09-24 21:33:32,525 - data_ingestion - DEBUG - data loaded from: https://raw.githubusercontent.com/Himanshu-1703/reddit-sentiment-analysis/refs/heads/main/data/reddit.csv
+2026-09-24 21:33:32,633 - data_ingestion - DEBUG - basic preprocessing of data of shape: (36793, 2) done.
+2026-09-24 21:33:32,894 - data_ingestion - DEBUG - train and test data saved to C:\Users\as296\Desktop\MLOps\YT_Insights\src\data\../../data\raw
