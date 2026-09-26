@@ -16,3 +16,18 @@ stages:
     - src/data/data_preprocessing.py
     outs:
     - data/preprocessing
+
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+    - data/preprocessing/preprocessed_train.csv
+    - src/model/model_building.py
+    params:
+    - model_building.n_estimators
+    - model_building.learning_rate
+    - model_building.max_depth
+    - model_building.max_features
+    - model_building.ngram_range
+    outs:
+    - trained_model/lgbm_model.pkl
+    - trained_model/tfidf_vctorizer.pkl
