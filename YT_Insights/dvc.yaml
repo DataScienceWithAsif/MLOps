@@ -31,3 +31,12 @@ stages:
     outs:
     - trained_model/lgbm_model.pkl
     - trained_model/tfidf_vctorizer.pkl
+
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - data/preprocessing/preprocessed_test.csv
+    - src/model/model_evaluation.py
+    outs:
+    - LGBM_Confusion_Matrix.png
+  
