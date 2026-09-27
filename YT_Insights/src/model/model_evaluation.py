@@ -7,6 +7,8 @@ import logging
 import pickle
 import yaml
 import os
+import mlflow
+import mlflow.sklearn
 
 # logging configuration
 logger = logging.getLogger("model_evaluation")
@@ -31,7 +33,12 @@ def load_params(params_path: str) -> dict:
         with open(params_path, "r") as file:
             params = yaml.safe_load(params_path)
         logger.debug(f"parameters loaded from {params_path}")
+        # when mlflow setup is activated
+        # for param, value in params.items():
+        #     mlflow.log_param(param, value)
+
         return params
+            
     
     except Exception as e:
         logger.error(f"error occured while loading params, \n{e}")
@@ -96,6 +103,14 @@ def evaluate_model(model, x_test_vec, y_test):
         plt.savefig("LGBM_Confusion_Matrix.png")
         plt.show()
 
+        # when mlflow setup is activated
+        # mlflow.log_artifact("LGBM_Confusion_Matrix.png")
+        # mlflow.log_metric("accuracy", accuracy)
+        # for label, metrics in classification_rep.items():
+        #     if isinstance(metrics, dict):
+        #         for metric, value in metrics.items():
+        #             mlflow.log_metric(f"{label}_{metric}", value)
+
         return accuracy, classification_rep
         logger.debug(f"Model Evaluation completed with accuracy: {accuracy}")
 
@@ -130,6 +145,17 @@ def main():
         print("-------------------------------")
         print(f"classification report: \n{classification_rep}")
 
+        # mlflow.sklearn.log_model(
+        #     model,
+        #     name="LGBMClassifier_model",
+        #     skops_trusted_types=[
+        #         "sklearn.tree._tree.Tree",
+        #         "collections.OrderedDict",
+        #         "lightgbm.basic.Booster",
+        #         "lightgbm.sklearn.LGBMClassifier",
+        #     ],
+        # )
+
         logger.debug("\nModel evaluation phase completed!")
 
 
@@ -140,3 +166,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
