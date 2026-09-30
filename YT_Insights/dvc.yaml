@@ -37,6 +37,14 @@ stages:
     deps:
     - data/preprocessing/preprocessed_test.csv
     - src/model/model_evaluation.py
+    - trained_model/lgbm_model.pkl
+    - trained_model/tfidf_vctorizer.pkl
     outs:
-    - LGBM_Confusion_Matrix.png
+    - model_info.json
+
+  model_registration:
+    cmd: python src/model/model_registry.py
+    deps:
+    - model_info.json
+    - src/model/model_registry.py
   
