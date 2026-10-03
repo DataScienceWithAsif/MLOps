@@ -141,7 +141,7 @@ def main():
     
     logger.debug("Model Evaluation phase started...........")
 
-    mlflow.set_tracking_uri("http://ec2-13-126-176-114.ap-south-1.compute.amazonaws.com:5000/")
+    mlflow.set_tracking_uri("http://ec2-3-110-56-241.ap-south-1.compute.amazonaws.com:5000/")
     mlflow.set_experiment("dvc-pipeline-runs")
 
     with mlflow.start_run() as run:
@@ -170,9 +170,11 @@ def main():
                 input_example=input_exp
             )
 
-            artifact_uri = mlflow.get_artifact_uri()
-            model_path = f"{artifact_uri}/LGBM_model"
-            save_model_info(run.info.run_id, model_path=model_path, file_path="model_info.json")
+            save_model_info(
+                run.info.run_id,
+                model_path="LGBM_model",
+                file_path=os.path.join(root_dir, "model_info.json")
+            )
 
             mlflow.log_artifact(os.path.join(root_dir, "trained_model/tfidf_vctorizer.pkl"))
 

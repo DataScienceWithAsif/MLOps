@@ -3,7 +3,7 @@ import mlflow
 import logging
 import os
 
-mlflow.set_tracking_uri("http://ec2-13-126-176-114.ap-south-1.compute.amazonaws.com:5000/")
+mlflow.set_tracking_uri("http://ec2-3-110-56-241.ap-south-1.compute.amazonaws.com:5000/")
 
 #logging configuration
 logger = logging.getLogger("model_registration")
@@ -36,7 +36,10 @@ def load_model_info(file_path: str) -> dict:
 
 def register_model(model_name: str, model_info: dict) -> None:
     try:
-        model_uri = f"runs:/{model_info['run_id']}/{model_info['model_path']}"
+        model_path = model_info["model_path"]
+        if model_path.startswith(("s3://", "file://", "dbfs:/")):
+            model_path = model_path.rsplit("/", 1)[-1]
+        model_uri = f"runs:/{model_info['run_id']}/{model_path}"
 
         model_version = mlflow.register_model(model_uri, model_name)
 
